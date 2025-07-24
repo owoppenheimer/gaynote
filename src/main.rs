@@ -22,9 +22,9 @@ fn args() -> Vec<String> {
     }
 
     // find flags
-    for i in 0..args.len() {
-        match args.get(i).map(|s| s.as_str()) {
-            Some("--help") | Some("-h") => {
+    for flag in &args {
+        match flag.as_str() {
+            "--help" | "-h" => {
                 println!("{}", "Справка:".yellow());
                 println!("{}", "-----------".yellow());
                 println!("\n{} - {}я, ОтечестВеннАя прОгрАммА, которая позволяет вычислить гея, который отправится на СВО следующим!", "gaynote".green(), "СВО".red());
@@ -32,10 +32,17 @@ fn args() -> Vec<String> {
                 println!("Чтобы узнать версию, используйте флаг '--version' или '-ZV'");
                 exit(0);
             },
-            Some("--version") | Some("-ZV") => {
+
+            "--version" | "-ZV" => {
                 println!("Версия {}ей прОгрАммы - {}", "СВО".red(), VERSION.yellow());
                 exit(0);
-            }
+            },
+
+            s if s.starts_with('-') | s.starts_with("--") => {
+                eprintln!("ОШИБКА: Неизвестный флаг!");
+                exit(1);
+            },
+
             _ => {}
         };
     }
