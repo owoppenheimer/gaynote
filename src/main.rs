@@ -4,7 +4,7 @@ use std::{process::exit, env};
 use {rand, colored::Colorize};
 
 // define a vcersion
-const VERSION: &str = "1.0";
+const VERSION: &str = "1.1";
 
 fn input() -> Result<String, Box<dyn Error>> {
     let mut i = String::new();
@@ -48,13 +48,21 @@ fn args() -> Vec<String> {
     }
     args
 }
+
+fn rm_nlist(vec: &mut Vec<String>, index: usize) {
+    vec.remove(index);
+    for i in 0..vec.len() {
+        println!("| {}: {}", (i + 1).to_string().yellow(), vec[i]);
+    }
+}
+
 fn main() -> Result<(), Box<dyn Error>> {
-    let gays = args();
+    let mut gays = args();
 
     let r = rand::random_range(0..gays.len());
     println!("\n{}", "- Геи:".red());
     for i in 0..gays.len() {
-        println!("| {}: {}", gays[i].yellow(), i + 1);
+        println!("| {}: {}", (i + 1).to_string().yellow(), gays[i]);
     }
 
     print!("Вы готовы? [Y/n]: ");
@@ -69,6 +77,11 @@ fn main() -> Result<(), Box<dyn Error>> {
     if let 'y' = sex.to_ascii_lowercase() {
         println!("{}", "-------------------------".yellow());
         println!("\nГей: {}{}", gays[r].green(), "✅".green());
+        println!("\n{}", "-------------------------".yellow());
+        println!("{}", "- Натуралы:".red());
+
+        // list straights
+        rm_nlist(&mut gays, r);
     } else {
         eprintln!("лох ебаный");
         exit(1);
