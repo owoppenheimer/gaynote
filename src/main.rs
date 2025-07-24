@@ -4,7 +4,7 @@ use std::{process::exit, env};
 use {rand, colored::Colorize};
 
 // define a vcersion
-const VERSION: &'static str = "1.0";
+const VERSION: &str = "1.0";
 
 fn input() -> Result<String, Box<dyn Error>> {
     let mut i = String::new();
@@ -60,13 +60,8 @@ fn main() -> Result<(), Box<dyn Error>> {
     };
 
     if let 'y' = sex.to_ascii_lowercase() {
-        for i in 0..gays.len() {
-            if r == i {
-                println!("{}", "-------------------------".yellow());
-                println!("\nГей: {}{}", gays[i].green(), "✅".green());
-                exit(0);
-            }
-        }
+        println!("{}", "-------------------------".yellow());
+        println!("\nГей: {}{}", gays[r].green(), "✅".green());
     } else {
         eprintln!("лох ебаный");
         exit(1);
