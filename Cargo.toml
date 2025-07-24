@@ -1,9 +1,9 @@
 [package]
 name = "gaynote"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2024"
 license = "GPL-3.0"
-authors = ["owoppenheimer"]
+authors = ["owoppenheimer <owoppenheimer@gmail.com>"]
 
 [dependencies]
 colored = "3.0.0"
